@@ -35,6 +35,8 @@ SDB removes this constraint:
 
 Isolation is enforced **before interpretation**, not after.
 
+![Selective Decode Architecture](./selective-decode-architecture.png)
+
 ---
 
 ## Repository Structure
@@ -90,7 +92,11 @@ Extracted outcomes:
 This layer captures what holds, what fails, and what remains unresolved.
 
 ---
+## System Structure
 
+![SDB Layered Model](./sdb-layered-model.png)
+
+---
 ## Epistemic Contract
 
 This repository enforces the following:
