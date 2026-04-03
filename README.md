@@ -1,7 +1,9 @@
+![Version](https://img.shields.io/badge/version-v1.0-blue)
+
 # Selective Decode Broadcast (SDB)
 
 **Version:** 1.0  
-**Status:** Tagged Release — Stabilized Research Artifact  
+**Status:** Tagged Release - Stabilized Research Artifact  
 
 ---
 
