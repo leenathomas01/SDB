@@ -1,0 +1,75 @@
+{
+  "schema_ver": "0.2",
+  "codebook_ver": "1.0",
+  "observe_default": true,
+  "elevation_required": ["cooccupy", "act"],
+  "driftThreshold": 0.25,
+  "beaconEvery": 5,
+  "haltOnMissedBeacons": 2,
+
+  "isolation": {
+    "rate_limit_msgs_per_sec": 4,
+    "burst_tokens": 8,
+    "max_packet_bytes": 12288,
+    "fixed_packet_sizes": [4096, 8192, 12288],
+    "require_enrollment": true
+  },
+
+  "attestation": {
+    "sig_alg": "ECDSA-P256-SHA256",
+    "policy_hash_alg": "SHA-256",
+    "key_rotation_every_msgs": 10
+  },
+
+  "clarity_guard": {
+    "recursion_limit": 3,
+    "novelty_threshold": 0.85,
+    "affect_z_threshold": 2.0,
+    "escalation_limit_ms": 1200000,
+    "cg_nonimprove_cycles": 2
+  },
+
+  "metrics": {
+    "intent_K": 8,
+    "perplexity_W": 16,
+    "min_geometry": 0.70
+  },
+
+  "rhythm": {
+    "rhythm_enabled": true,
+    "rhythm_bits": 2,
+    "rhythm_window_ms": 250,
+    "max_rhythm_drift_ms": 12,
+    "deny_of_vibe_detection": {
+      "entropy_window": 32,
+      "max_shannon_bits": 1.5,
+      "min_autocorr": 0.10,
+      "action_on_violation": "quarantine_rhythm"
+    }
+  },
+
+  "dream": {
+    "dream_enabled": true,
+    "dream_K": 8,
+    "dream_ops": ["cross", "gan-lite", "median", "negotiate"],
+    "gan_lite_seed": "hash(session_id||t||agent_id)",
+    "negotiate": {
+      "max_rounds": 1,
+      "fallback_op": "median"
+    }
+  },
+
+  "logs": {
+    "sealed_events": [
+      "BEACON",
+      "ALERT",
+      "MERGE",
+      "RESET",
+      "KEY_ROTATE",
+      "POLICY_SET",
+      "ENROLL_OK",
+      "ENROLL_FAIL"
+    ],
+    "anchor_transparency": true
+  }
+}

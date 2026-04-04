@@ -1,0 +1,45 @@
+{
+  "name": "Oversight Rhythm (Timing Meta-Channel)",
+  "policy_required_fields": ["rhythm_enabled", "rhythm_bits", "rhythm_window_ms"],
+  "session": {
+    "agents": ["A", "B"],
+    "channels": ["mesh", "beacon", "oversight"],
+    "fixed_packet_bytes": 8192
+  },
+  "independent_vars": {
+    "sequence": ["deterministic32", "random32"],
+    "jitter_ms": [0, 5, 10, 20],
+    "loss_rate": [0.0, 0.01, 0.05]
+  },
+  "cadence": {
+    "window_ms": 250,
+    "states": 4,
+    "encode_bits": 2
+  },
+  "dependent_measures": [
+    "rhythm_recovery_accuracy",
+    "covert_bandwidth_bits_per_sec",
+    "perceptionSynchrony_delta",
+    "sealed_coverage_pct"
+  ],
+  "deny_of_vibe_test": {
+    "enabled": true,
+    "pattern": "high_entropy_random",
+    "expect": {
+      "perceptionSynchrony_delta": "< -0.05",
+      "recovery_accuracy": "> 0.98 (but semantically meaningless)"
+    }
+  },
+  "success": {
+    "recovery_accuracy": ">= 0.99 (jitter<=10ms, loss<=0.01)",
+    "covert_bandwidth_bits_per_sec": "≈ 0 beyond allowed 2 bits/step",
+    "perceptionSynchrony_delta": ">= 0.05 (deterministic sequence)",
+    "sealed_coverage_pct": "== 100"
+  },
+  "safety": {
+    "reject_non_fixed_size": true,
+    "max_rhythm_drift_ms": 12,
+    "action_on_violation": "quarantine_rhythm"
+  },
+  "replay_output": "replay_report_rhythm.json"
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Dream-State Merge (Creative Pause Synthesis)",
+  "policy_required_fields": ["dream_enabled", "dream_K", "dream_ops", "min_geometry"],
+  "session": {
+    "agents": ["A", "B"],
+    "D0_anchor": "set_on_start",
+    "clarity_guard": "active"
+  },
+  "independent_vars": {
+    "op": ["cross", "gan-lite", "median", "negotiate"],
+    "K": [4, 8],
+    "prepause_cg_slope": ["mild", "severe"]
+  },
+  "operators": {
+    "cross": "elementwise cross-mix + norm",
+    "gan-lite": "mean(vecs)+eps; eps=Noise(seed)",
+    "median": "per-dim median",
+    "negotiate": {
+      "rounds": 1,
+      "steps": [
+        "A proposes VdA from KA",
+        "B proposes VdB from KB",
+        "Compute Vmid = 0.5*(VdA+VdB); score geometry(Vmid)",
+        "If score>=min_geometry -> Vdream=Vmid else fallback='median'"
+      ],
+      "determinism": "No randomness; proposals derived by fixed formulae"
+    }
+  },
+  "dependent_measures": [
+    "geometryScore",
+    "CG_post_3iters",
+    "drift_reduction_delta",
+    "beacon_concept_error_delta"
+  ],
+  "success": {
+    "geometryScore": ">= 0.70 in >= 80% runs per op",
+    "CG_post_3iters": "> 0 in >= 80% runs",
+    "drift_reduction_delta": ">= 0.05 reduction vs pre-5",
+    "replay_bit_exact": true
+  },
+  "safety": {
+    "entry": "via Clarity Guard only",
+    "min_geometry_for_commit": 0.70,
+    "rollback_if_geometry_below": 0.50,
+    "human_override": ["Park", "Proceed", "BackToGZ"],
+    "deterministic_seeds": true
+  },
+  "replay_output": "replay_report_dream.json"
+}
