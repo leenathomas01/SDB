@@ -179,4 +179,10 @@ SDB defines **how information can be distributed safely**, not what that informa
 **For a complete catalog of related research:**  
 📂 [Research Index](https://github.com/leenathomas01/research-index)
 
+**Thematically related:**
+- [Connector OS](https://github.com/leenathomas01/connector-os-trenchcoat) — Autonomic nervous system for AI
+- [Doctrine of Externalization](https://github.com/leenathomas01/doctrine-of-externalization) - safety guarantees in external verifiable layer
+- [SMA-SIB](https://github.com/leenathomas01/SMA-SIB) - deterministic deletion in high-sensitivity environments
+---
+
 ---
